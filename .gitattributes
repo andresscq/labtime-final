@@ -1,0 +1,6 @@
+# gradlew es un shell script (#!/bin/sh) que corre dentro de contenedores Linux.
+# Sin esto, Git para Windows lo clona con CRLF y el shebang se rompe ("not found").
+*.sh text eol=lf
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+*.bat text eol=crlf

@@ -1,0 +1,22 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "users-db (labtime)",
+      "Group": "LabTime",
+      "Host": "users-db",
+      "Port": 5432,
+      "MaintenanceDB": "usersdb",
+      "Username": "users_user",
+      "SSLMode": "prefer"
+    },
+    "2": {
+      "Name": "labtime-db (labtime)",
+      "Group": "LabTime",
+      "Host": "labtime-db",
+      "Port": 5432,
+      "MaintenanceDB": "labtimedb",
+      "Username": "labtime_user",
+      "SSLMode": "prefer"
+    }
+  }
+}

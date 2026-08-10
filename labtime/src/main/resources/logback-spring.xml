@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--
+        Formato exigido por el estandar de logging del proyecto integrador:
+        <timestamp> | <LEVEL> | <servicio> | sub=<sub|anonimo> | <logger> | %msg
+
+        El codigo de la aplicacion SOLO escribe la parte final: "event=... | msg=... | k=v".
+        Todo lo anterior (timestamp, nivel, nombre del servicio, sub, logger) lo pone
+        este patron automaticamente, para que nunca se pueda "olvidar" un campo.
+
+        - timestamp en ISO-8601 con milisegundos.
+        - nivel en ancho fijo de 5 (%-5level -> "INFO ", "WARN ", "ERROR").
+        - servicio: nombre de spring.application.name (= nombre del servicio en docker-compose).
+        - sub: se lee del MDC (lo pone MdcSubFilter en cada request); "anonimo" si no hay token.
+    -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z', UTC} | %-5level | ${spring.application.name} | sub=%X{sub:-anonimo} | %logger{40} | %msg%n"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- SQL con parametros (Criterio 2.e): sentencias + valores de bind -->
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <logger name="org.hibernate.orm.jdbc.bind" level="TRACE"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

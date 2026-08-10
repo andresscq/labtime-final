@@ -1,0 +1,23 @@
+.env
+*.log
+
+# Gradle / build
+build/
+.gradle/
+*.class
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Node (mobile)
+node_modules/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code local tooling (dev-server launch config for this session)
+.claude/

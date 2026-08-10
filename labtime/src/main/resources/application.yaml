@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: labtime
+
+  datasource:
+    url: jdbc:postgresql://labtime-db:5432/labtimedb
+    driver-class-name: org.postgresql.Driver
+    username: ${LABTIME_DB_USER:labtime_user}
+    password: ${LABTIME_DB_PASSWORD:labtime_pass}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+
+  # Resource Server: valida el JWT que emite Cognito. Ambos microservicios
+  # (users y labtime) DEBEN resolver exactamente el mismo issuer, o el token
+  # que uno acepta el otro lo rechaza.
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.${COGNITO_REGION:us-east-1}.amazonaws.com/${COGNITO_USER_POOL_ID:us-east-1_4B0CaMgZv}
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
